@@ -9,8 +9,7 @@ namespace stud
 {
   namespace regex
   {
-    // Print regex error description, converting the first character to lower
-    // case and stripping the trailing dot.
+    // Print regex error description.
     //
     LIBSTUD_REGEX_SYMEXPORT std::ostream&
     operator<< (std::ostream&, const regex_error&);

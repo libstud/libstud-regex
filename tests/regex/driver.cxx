@@ -75,12 +75,16 @@ int main ()
       regex_error e2 (e1);
 
       assert (e2.code () == e1.code ());
-      assert (string (e2.what ()) == e1.what ());
+
+      string ed ("mismatched '(' and ')'");
+
+      assert (ed == e1.what ());
+      assert (ed == e2.what ());
 
       std::ostringstream o;
       o << e1;
 
-      assert (o.str () == "the expression contained mismatched ( and )");
+      assert (o.str () == ed);
     }
 
     // Test that regex is capable of matching very long strings.

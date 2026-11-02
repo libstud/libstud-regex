@@ -25,6 +25,7 @@ using std::begin;
 using std::end;
 
 static const char* make_error_type_string(regex_constants::error_type ecode) {
+#if 0
   switch (ecode) {
   case regex_constants::error_collate:
     return "The expression contained an invalid collating element name.";
@@ -67,6 +68,45 @@ static const char* make_error_type_string(regex_constants::error_type ecode) {
     break;
   }
   return "Unknown error type";
+#else
+  switch (ecode) {
+  case regex_constants::error_collate:
+    return "invalid collating element name";
+  case regex_constants::error_ctype:
+    return "invalid character class name";
+  case regex_constants::error_escape:
+    return "invalid escaped character or trailing escape";
+  case regex_constants::error_backref:
+    return "invalid back reference";
+  case regex_constants::error_brack:
+    return "mismatched '[' and ']'";
+  case regex_constants::error_paren:
+    return "mismatched '(' and ')'";
+  case regex_constants::error_brace:
+    return "mismatched '{' and '}'";
+  case regex_constants::error_badbrace:
+    return "invalid '{}' range";                      // a{5,1}
+  case regex_constants::error_range:
+    return "invalid character range";                 // [b-a]
+  case regex_constants::error_space:
+    return "insufficient memory to parse";
+  case regex_constants::error_badrepeat:
+    return "'*', '?', '+' or '{' does not follow sub-expression";
+  case regex_constants::error_complexity:
+    return "complexity exceeds implementation limit";
+  case regex_constants::error_stack:
+    return "insufficient memory to match";
+  case regex_constants::__re_err_grammar:
+    return "invalid regular expression";              // Multiple grammars.
+  case regex_constants::__re_err_empty:
+    return "empty regular expression";                // For regex::extended.
+  case regex_constants::__re_err_parse:
+    return "malformed regular expression";            // [[abc]]
+  default:
+    break;
+  }
+  return "unknown error type";
+#endif
 }
 
 regex_error::regex_error(regex_constants::error_type ecode)
